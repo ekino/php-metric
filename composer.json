@@ -1,0 +1,22 @@
+{
+    "name": "ekino/metric",
+    "type": "librairie",
+    "description": "Provide base class to collect and store metric",
+    "keywords": ["metric", "performance", "monitoring"],
+    "homepage": "https://github.com/ekino/php-metric",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Rabaix",
+            "email": "thomas.rabaix@ekino.com",
+            "homepage": "http://ekino.com"
+        }
+    ],
+    "require": {
+        "sonata/exporter": "*"
+    },
+    "autoload": {
+        "psr-0": { "Ekino\\Metric": "" }
+    },
+    "target-dir": "Ekino/Metric"
+}
