@@ -40,7 +40,7 @@ class MetricManager
      */
     public function add(MetricInterface $metric)
     {
-        $this->metrics[] = $metric;
+        $this->metrics[] = array($metric, time());
     }
 
     /**

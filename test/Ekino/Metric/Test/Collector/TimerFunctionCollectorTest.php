@@ -34,7 +34,7 @@ class TimerFunctionCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCallback()
     {
-        $collector = new TimerFunctionCollector('function.heavy_pdf', false);
+        new TimerFunctionCollector('function.heavy_pdf', false);
     }
 
     /**
