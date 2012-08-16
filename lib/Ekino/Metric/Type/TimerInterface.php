@@ -19,7 +19,7 @@ interface TimerInterface extends MetricInterface
     function tick();
 
     /**
-     * @return the last value recorded by the tick function
+     * @return integer the last value recorded by the tick function
      */
     function getValue();
 }

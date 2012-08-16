@@ -27,5 +27,4 @@ class MemoryPeakUsageCollectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('php.memory.peak.emalloc', $gauge->getName());
         $this->assertNotNull($gauge->getValue());
     }
-
 }

@@ -5,7 +5,7 @@ namespace Ekino\Metric\Type;
 interface MetricInterface
 {
     /**
-     * @return name
+     * @return string
      */
     function getName();
 }
