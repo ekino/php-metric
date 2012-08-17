@@ -41,12 +41,16 @@ $ php composer.phar update ekino/php-metric
 ## Usage with CollectD
 
 ```php
-$collectd = new Ekino\Metric\Reporter\CollectDReporter('web1-php', new Ekino\Metric\Writer('localhost', 25826));
+<?php
+
+// initialize a reporter
+$collectd = new Ekino\Metric\Reporter\CollectDReporter('web1-php', new Ekino\Metric\Writer\UdpWriter('localhost', 25826));
+
+// initialize the metric manager
 $manager = new Ekino\Metric\MetricManager($collectd);
 
-$collector = new Ekino\Metric\Collector\MemoryUsageCollector(true);
-
 // store the current memory usage
+$collector = new Ekino\Metric\Collector\MemoryUsageCollector(true);
 $manager->addMetric($collector->get());
 
 // store execution time of one callback function
@@ -55,4 +59,7 @@ $collector = new Ekino\Metric\Collector\TimerFunctionCollector('php.function.hea
 $collector->run();
 
 $manager->addMetric($collector->get());
+
+// send metric to the reporter
+$manager->flush();
 ```
