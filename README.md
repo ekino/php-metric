@@ -25,7 +25,7 @@ Or you can do it by yourself, first, add the following to your `composer.json` f
     // ...
     require: {
         // ...
-        "ekino/metric": "master-dev"
+        "ekino/metric": "dev-master"
     }
 }
 ```
