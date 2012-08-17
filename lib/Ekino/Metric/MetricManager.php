@@ -54,4 +54,12 @@ class MetricManager
 
         $this->metrics = array();
     }
+
+    /**
+     * @return array
+     */
+    public function getMetrics()
+    {
+        return $this->metrics;
+    }
 }

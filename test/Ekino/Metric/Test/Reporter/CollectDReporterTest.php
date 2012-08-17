@@ -27,6 +27,8 @@ class MetricManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->writer = new InMemoryWriter;
 
+//        $this->writer = new \Ekino\Metric\Writer\UdpWriter('localhost', 25826);
+
         $this->collectd = new CollectDReporter('web1-php-metric', $this->writer);
     }
 
@@ -56,9 +58,19 @@ class MetricManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, bin2hex($this->writer->getData()));
     }
 
+    public function testWithLoooongString()
+    {
+        $timer = $this->getMock('Ekino\Metric\Type\TimerInterface');
+        $timer->expects($this->once())->method('getName')->will($this->returnValue('SymfonysComponentsHttpKernelssdfdsfsfsfsdfsdsfdassadasdsadasdas'));
+        $timer->expects($this->never())->method('getValue');
+
+        $this->collectd->send(array(
+            array($timer, 1345136728)
+        ));
+    }
+
     public function testCombinedMetrics()
     {
-
         $timer = $this->getMock('Ekino\Metric\Type\TimerInterface');
         $timer->expects($this->once())->method('getName')->will($this->returnValue('request.route.sonata_dispatch'));
         $timer->expects($this->once())->method('getValue')->will($this->returnValue(10));

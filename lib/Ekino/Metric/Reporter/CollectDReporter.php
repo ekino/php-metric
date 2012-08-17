@@ -15,6 +15,7 @@ use Ekino\Metric\Type\TimerInterface;
 use Ekino\Metric\Type\GaugeInterface;
 use Ekino\Metric\Type\MetricInterface;
 use Ekino\Metric\Writer\WriterInterface;
+use Ekino\Metric\Exception\UnsuppportedException;
 
 /**
  * Reference : http://collectd.org/wiki/index.php/Binary_protocol
@@ -67,13 +68,17 @@ class CollectDReporter implements ReporterInterface
     }
 
     /**
-     * @param $type
-     * @param $string
+     * @param string $type
+     * @param string $string
      *
      * @return binary
      */
     protected function buildString($type, $string)
     {
+        if (strlen($string) + 5 > 64) {
+            throw new UnsuppportedException('String greater than 64');
+        }
+
         return pack('nn', $type, strlen($string) + 5) . $string . pack('x');
     }
 
@@ -126,7 +131,7 @@ class CollectDReporter implements ReporterInterface
         $packet = $this->getBasePacket($metric, $timestamp);
 
         $packet .= $this->buildString(self::PART_TYPE_TYPE, 'gauge');
-//        $packet .= $this->buildString(self::PART_TYPE_TYPE_INSTANCE, 'none');
+//        $packet .= $this->buildString(self::PART_TYPE_TYPE_INSTANCE, 1);
 
         $data = pack("nCd", 1, self::DATA_TYPE_GAUGE, $metric->getValue());
 
@@ -146,12 +151,16 @@ class CollectDReporter implements ReporterInterface
         foreach ($metrics as $data) {
             list($metric, $timestamp) = $data;
 
-            if ($metric instanceof TimerInterface) {
-                $bin .= $this->buildTimer($metric, $timestamp);
-            } elseif ($metric instanceof GaugeInterface) {
-                $bin .= $this->buildGauge($metric, $timestamp);
-            } else {
-                throw new \RuntimeException('Metric not implement');
+            try {
+                if ($metric instanceof TimerInterface) {
+                    $bin .= $this->buildTimer($metric, $timestamp);
+                } elseif ($metric instanceof GaugeInterface) {
+                    $bin .= $this->buildGauge($metric, $timestamp);
+                } else {
+                    throw new \RuntimeException('Metric not implement');
+                }
+            } catch (UnsuppportedException $e) {
+
             }
         }
 
