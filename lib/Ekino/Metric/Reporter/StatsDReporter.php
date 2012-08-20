@@ -52,7 +52,7 @@ class StatsDReporter implements ReporterInterface
      */
     protected function buildTimer(TimerInterface $metric, $timestamp)
     {
-        return sprintf("%s:%f|%s", $metric->getName(), $metric->getValue(), "s");
+        return sprintf("%s:%f|%s", $metric->getName(), $metric->getValue(), "ms");
     }
 
     /**

@@ -23,12 +23,12 @@ interface TimerInterface extends MetricInterface
     function start();
 
     /**
-     * @return integer represents milliseconds
+     * @return integer the different between start and the current tick in ms
      */
     function tick();
 
     /**
-     * @return integer the last value recorded by the tick function
+     * @return integer the different between start and the last tick in ms
      */
     function getValue();
 }

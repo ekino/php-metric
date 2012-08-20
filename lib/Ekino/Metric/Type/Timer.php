@@ -47,7 +47,7 @@ class Timer implements TimerInterface
      */
     public function start()
     {
-        $this->startedAt = microtime(true);
+        $this->startedAt = microtime(true) * 1000;
     }
 
     /**
@@ -59,7 +59,7 @@ class Timer implements TimerInterface
             throw new \RuntimeException('The timer is not initialized (startedAt)');
         }
 
-        $this->tickAt = microtime(true);
+        $this->tickAt = microtime(true) * 1000;
 
         return $this->getValue();
     }

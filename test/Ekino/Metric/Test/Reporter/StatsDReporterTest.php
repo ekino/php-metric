@@ -51,7 +51,7 @@ class StatsDReporterTest extends \PHPUnit_Framework_TestCase
             array($timer, 1345136728)
         ));
 
-        $this->assertEquals('request.route.sonata_dispatch:10.000000|s', $this->writer->getData());
+        $this->assertEquals('request.route.sonata_dispatch:10.000000|ms', $this->writer->getData());
     }
 
     public function testCombinedMetrics()
@@ -65,7 +65,7 @@ class StatsDReporterTest extends \PHPUnit_Framework_TestCase
             array($timer, 1345136728),
         ));
 
-        $expected = 'mail.index:12.000000|grequest.route.sonata_dispatch:10.000000|s';
+        $expected = 'mail.index:12.000000|grequest.route.sonata_dispatch:10.000000|ms';
 
         $this->assertEquals($expected, $this->writer->getData());
     }
