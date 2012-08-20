@@ -165,7 +165,9 @@ class CollectDReporter implements ReporterInterface
         }
 
         if (!empty($bin)) {
+            $this->writer->open();
             $this->writer->write($bin);
+            $this->writer->close();
         }
     }
 }

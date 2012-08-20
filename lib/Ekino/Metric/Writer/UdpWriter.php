@@ -13,10 +13,35 @@ namespace Ekino\Metric\Writer;
 
 class UdpWriter implements WriterInterface
 {
+    protected $fp;
 
     protected $host;
 
     protected $port;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function open()
+    {
+        if (is_resource($this->fp)) {
+            return;
+        }
+
+        $this->fp = fsockopen(sprintf('udp://%s', $this->host), $this->port);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function close()
+    {
+        if (!is_resource($this->fp)) {
+            return;
+        }
+
+        fclose($this->fp);
+    }
 
     /**
      * @param string $host
@@ -33,13 +58,10 @@ class UdpWriter implements WriterInterface
      */
     public function write($data)
     {
-        $fp = fsockopen(sprintf('udp://%s', $this->host), $this->port);
-
-        if (!$fp) {
+        if (!is_resource($this->fp)) {
             return;
         }
 
-        fwrite($fp, $data);
-        fclose($fp);
+        fwrite($this->fp, $data);
     }
 }

@@ -13,6 +13,14 @@ namespace Ekino\Metric\Writer;
 
 interface WriterInterface
 {
+
+    /**
+     * Open Stream
+     *
+     * @return mixed
+     */
+    function open();
+
     /**
      * Write data to stream
      *
@@ -21,4 +29,11 @@ interface WriterInterface
      * @return void
      */
     function write($data);
+
+    /**
+     * Close Stream
+     *
+     * @return mixed
+     */
+    function close();
 }

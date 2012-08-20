@@ -18,6 +18,18 @@ class InMemoryWriter implements WriterInterface
     /**
      * {@inheritdoc}
      */
+    public function open()
+    {}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function close()
+    {}
+
+    /**
+     * {@inheritdoc}
+     */
     public function write($data)
     {
         $this->data = $data;
