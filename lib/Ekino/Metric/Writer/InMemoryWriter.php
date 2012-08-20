@@ -19,7 +19,9 @@ class InMemoryWriter implements WriterInterface
      * {@inheritdoc}
      */
     public function open()
-    {}
+    {
+        $this->data = '';
+    }
 
     /**
      * {@inheritdoc}
@@ -32,7 +34,7 @@ class InMemoryWriter implements WriterInterface
      */
     public function write($data)
     {
-        $this->data = $data;
+        $this->data .= $data;
     }
 
     /**
