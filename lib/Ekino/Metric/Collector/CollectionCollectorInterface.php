@@ -13,10 +13,10 @@ namespace Ekino\Metric\Collector;
 
 use Ekino\Metric\Type\MetricInterface;
 
-interface CollectorInterface
+interface CollectionCollectorInterface
 {
     /**
-     * @return MetricInterface
+     * @return MetricInterface[]
      */
     function get();
 }

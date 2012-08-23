@@ -13,7 +13,6 @@ namespace Ekino\Metric\Writer;
 
 interface WriterInterface
 {
-
     /**
      * Open Stream
      *
