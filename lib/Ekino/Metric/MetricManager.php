@@ -13,6 +13,7 @@ namespace Ekino\Metric;
 
 use Ekino\Metric\Type\MetricInterface;
 use Ekino\Metric\Reporter\ReporterInterface;
+use Ekino\Metric\Type\CollectionMetricInterface;
 
 /**
  * This class collect all metrics from different collector and
@@ -41,6 +42,16 @@ class MetricManager
     public function add(MetricInterface $metric)
     {
         $this->metrics[] = array($metric, time());
+    }
+
+    /**
+     * @param CollectionMetricInterface $collection
+     */
+    public function addCollection(CollectionMetricInterface $collection)
+    {
+        foreach ($collection as $metric) {
+            $this->add($metric);
+        }
     }
 
     /**

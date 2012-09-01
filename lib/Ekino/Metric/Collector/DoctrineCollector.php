@@ -17,6 +17,7 @@ use Ekino\Metric\Exception\UnsuppportedException;
 use Ekino\Metric\Type\DefinedTimer;
 use Ekino\Metric\Type\Gauge;
 use Ekino\Metric\StringHelper;
+use Ekino\Metric\Type\Collection;
 
 class DoctrineCollector implements CollectionCollectorInterface
 {
@@ -55,7 +56,7 @@ class DoctrineCollector implements CollectionCollectorInterface
      */
     public function get()
     {
-        $collection = array();
+        $collection = new Collection;
 
         foreach ($this->loggers as $connection => $logger) {
             $stats = array();
@@ -65,10 +66,10 @@ class DoctrineCollector implements CollectionCollectorInterface
 
                 $code = $connection.'.'.$type.'.'.$table;
 
-                $collection[] = new DefinedTimer(
+                $collection->add(new DefinedTimer(
                     $this->stringHelper->sanitize(sprintf('%s.time.%s', $this->prefix, $code)),
                     $query['executionMS']
-                );
+                ));
 
                 if (!isset($stats[$code])) {
                     $stats[$code] = 0;
@@ -78,10 +79,10 @@ class DoctrineCollector implements CollectionCollectorInterface
             }
 
             foreach ($stats as $code => $counter) {
-                $collection[] = new Gauge(
+                $collection->add(new Gauge(
                     $this->stringHelper->sanitize(sprintf('%s.count.%s', $this->prefix, $code)),
                     $counter
-                );
+                ));
             }
         }
 

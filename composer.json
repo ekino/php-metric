@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "sonata-project/exporter": "dev-master"
+        "sonata-project/exporter": "dev-master",
+        "doctrine/common": "*"
     },
     "autoload": {
         "psr-0": { "Ekino\\Metric": "lib" }
