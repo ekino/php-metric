@@ -5,6 +5,19 @@ Ekino PHP Metric
 
 This library provides base classes to collect and publish metrics.
 
+Metric Reporters :
+
+ - CollectD
+ - StatsD
+ - NewRelic
+
+Metric Collectors :
+
+ - Doctrine
+ - Xhprof
+ - Timer
+ - Memory Usage
+
 ## Installation
 
 ### Using Composer
@@ -50,7 +63,7 @@ $collectd = new Ekino\Metric\Reporter\CollectDReporter('web1-php', new Ekino\Met
 $manager = new Ekino\Metric\MetricManager($collectd);
 
 // store the current memory usage
-$collector = new Ekino\Metric\Collector\MemoryUsageCollector(true);
+$collector = new Ekino\Metric\Collector\MemoryUsageCollector('memory.usage.', true);
 $manager->addMetric($collector->get());
 
 // store execution time of one callback function
