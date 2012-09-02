@@ -17,7 +17,7 @@ class MemoryUsageCollectorTest extends \PHPUnit_Framework_TestCase
 {
     public function testMemoryUsageSystem()
     {
-        $g = new MemoryUsageCollector(true);
+        $g = new MemoryUsageCollector('php.memory.usage.', true);
 
         $gauge = $g->get();
 
@@ -28,7 +28,7 @@ class MemoryUsageCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testMemoryUsageEmalloc()
     {
-        $g = new MemoryUsageCollector(false);
+        $g = new MemoryUsageCollector('php.memory.usage.', false);
 
         $gauge = $g->get();
 

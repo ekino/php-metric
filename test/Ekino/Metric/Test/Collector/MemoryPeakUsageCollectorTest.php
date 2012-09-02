@@ -17,7 +17,7 @@ class MemoryPeakUsageCollectorTest extends \PHPUnit_Framework_TestCase
 {
     public function testMemoryUsageSystem()
     {
-        $g = new MemoryPeakUsageCollector(true);
+        $g = new MemoryPeakUsageCollector('php.memory.peak.', true);
 
         $gauge = $g->get();
 
@@ -28,7 +28,7 @@ class MemoryPeakUsageCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testMemoryUsageEmalloc()
     {
-        $g = new MemoryPeakUsageCollector(false);
+        $g = new MemoryPeakUsageCollector('php.memory.peak.', false);
 
         $gauge = $g->get();
 

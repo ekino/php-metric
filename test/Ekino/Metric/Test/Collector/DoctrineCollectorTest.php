@@ -21,7 +21,7 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
     {
         $stack = new DebugStack();
 
-        $collector = new DoctrineCollector(array(), new StringHelper(), 'php.doctrine');
+        $collector = new DoctrineCollector(array(), new StringHelper(), 'php.doctrine.');
         $collector->addLogger('debug', $stack);
 
         $this->assertEquals(0, count($collector->get()));
@@ -37,7 +37,7 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
         usleep(2000);
         $stack->stopQuery();
 
-        $collector = new DoctrineCollector(array(), new StringHelper(), 'php.doctrine');
+        $collector = new DoctrineCollector(array(), new StringHelper(), 'php.doctrine.');
         $collector->addLogger('debug', $stack);
 
         $this->assertEquals(2, count($collection = $collector->get()));

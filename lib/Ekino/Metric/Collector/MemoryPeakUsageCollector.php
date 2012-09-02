@@ -21,14 +21,18 @@ class MemoryPeakUsageCollector implements CollectorInterface
 {
     protected $real;
 
+    protected $prefix;
+
     /**
+     * @param string  $prefix
      * @param boolean $real Set this to true to get the real size of memory allocated from
      *                      system. If not set or false only the memory used by
      *                      emalloc() is reported.
      */
-    public function __construct($real)
+    public function __construct($prefix, $real)
     {
         $this->real = $real;
+        $this->prefix = $prefix;
     }
 
     /**
@@ -36,6 +40,6 @@ class MemoryPeakUsageCollector implements CollectorInterface
      */
     public function get()
     {
-        return new Gauge('php.memory.peak.'.($this->real ? 'system' : 'emalloc'), memory_get_peak_usage($this->real));
+        return new Gauge($this->prefix.($this->real ? 'system' : 'emalloc'), memory_get_peak_usage($this->real));
     }
 }

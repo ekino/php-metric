@@ -67,7 +67,7 @@ class DoctrineCollector implements CollectionCollectorInterface
                 $code = $connection.'.'.$type.'.'.$table;
 
                 $collection->add(new DefinedTimer(
-                    $this->stringHelper->sanitize(sprintf('%s.time.%s', $this->prefix, $code)),
+                    $this->stringHelper->sanitize(sprintf('%stime.%s', $this->prefix, $code)),
                     $query['executionMS']
                 ));
 
@@ -80,7 +80,7 @@ class DoctrineCollector implements CollectionCollectorInterface
 
             foreach ($stats as $code => $counter) {
                 $collection->add(new Gauge(
-                    $this->stringHelper->sanitize(sprintf('%s.count.%s', $this->prefix, $code)),
+                    $this->stringHelper->sanitize(sprintf('%scount.%s', $this->prefix, $code)),
                     $counter
                 ));
             }
