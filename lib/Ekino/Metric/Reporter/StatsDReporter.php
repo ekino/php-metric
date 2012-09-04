@@ -56,9 +56,7 @@ class StatsDReporter implements ReporterInterface
     }
 
     /**
-     * @param array $metrics
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function send(array $metrics)
     {
@@ -71,8 +69,6 @@ class StatsDReporter implements ReporterInterface
                     $datas[] = $this->buildTimer($metric, $timestamp);
                 } elseif ($metric instanceof GaugeInterface) {
                     $datas[] = $this->buildGauge($metric, $timestamp);
-                } else {
-                    throw new \RuntimeException('Metric not implement');
                 }
             } catch (UnsuppportedException $e) {
 

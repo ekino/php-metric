@@ -57,9 +57,7 @@ class NewRelicReporter implements ReporterInterface
     }
 
     /**
-     * @param array $metrics
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function send(array $metrics)
     {
@@ -70,8 +68,6 @@ class NewRelicReporter implements ReporterInterface
                 $this->sendTimer($metric, $timestamp);
             } elseif ($metric instanceof GaugeInterface) {
                 $this->sendGauge($metric, $timestamp);
-            } else {
-                throw new \RuntimeException('Metric not implement');
             }
         }
     }
