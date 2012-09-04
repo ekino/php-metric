@@ -10,6 +10,7 @@ Metric Reporters :
  - CollectD
  - StatsD
  - NewRelic
+ - XHGui
 
 Metric Collectors :
 
