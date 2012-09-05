@@ -14,6 +14,7 @@ namespace Ekino\Metric\Collector;
 use Ekino\Metric\Type\DefinedTimer;
 use Ekino\Metric\Type\Gauge;
 use Ekino\Metric\Type\Collection;
+use Ekino\Metric\Type\Xhprof;
 use Ekino\Metric\Reporter\Xhprof\XhprofRun;
 use Ekino\Metric\Reporter\Xhprof\XhprofSample;
 
@@ -74,6 +75,8 @@ class XhprofCollector implements CollectionCollectorInterface
 
         foreach ($this->functions as $name => $function) {
             $stat = $this->sample->getStat($function);
+
+            $collection->add(new Xhprof(sprintf("%s%s", $this->prefix, "sample"), $this->sample));
 
             if (!$stat) {
                 return $collection;
