@@ -73,10 +73,10 @@ class XhprofCollector implements CollectionCollectorInterface
             return $collection;
         }
 
+        $collection->add(new Xhprof(sprintf("%s%s", $this->prefix, "sample"), $this->sample));
+        
         foreach ($this->functions as $name => $function) {
             $stat = $this->sample->getStat($function);
-
-            $collection->add(new Xhprof(sprintf("%s%s", $this->prefix, "sample"), $this->sample));
 
             if (!$stat) {
                 return $collection;
