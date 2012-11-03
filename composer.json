@@ -24,6 +24,5 @@
     },
     "require-dev": {
         "doctrine/dbal": "*"
-    },
-    "target-dir": "Ekino/Metric"
+    }
 }
