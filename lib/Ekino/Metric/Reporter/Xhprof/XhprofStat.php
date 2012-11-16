@@ -55,7 +55,7 @@ class XhprofStat
     }
 
     /**
-     * @param string $name
+     * @param string $key
      * @param array  $data
      *
      * @return XhprofStat

@@ -19,6 +19,8 @@ class StringHelper
      *   - put the string in lowercase
      *
      * @param string $string
+     *
+     * @return string
      */
     public function sanitize($string)
     {
