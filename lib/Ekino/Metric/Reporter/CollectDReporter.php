@@ -15,7 +15,7 @@ use Ekino\Metric\Type\TimerInterface;
 use Ekino\Metric\Type\GaugeInterface;
 use Ekino\Metric\Type\MetricInterface;
 use Ekino\Metric\Writer\WriterInterface;
-use Ekino\Metric\Exception\UnsuppportedException;
+use Ekino\Metric\Exception\UnsupportedException;
 
 /**
  * Reference : http://collectd.org/wiki/index.php/Binary_protocol
@@ -76,7 +76,7 @@ class CollectDReporter implements ReporterInterface
     protected function buildString($type, $string)
     {
         if (strlen($string) + 5 > 64) {
-            throw new UnsuppportedException('String greater than 64');
+            throw new UnsupportedException('String greater than 64');
         }
 
         return pack('nn', $type, strlen($string) + 5) . $string . pack('x');
@@ -155,7 +155,7 @@ class CollectDReporter implements ReporterInterface
                 } elseif ($metric instanceof GaugeInterface) {
                     $bin .= $this->buildGauge($metric, $timestamp);
                 } 
-            } catch (UnsuppportedException $e) {
+            } catch (UnsupportedException $e) {
 
             }
         }

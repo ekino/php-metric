@@ -15,7 +15,7 @@ use Ekino\Metric\Type\TimerInterface;
 use Ekino\Metric\Type\GaugeInterface;
 use Ekino\Metric\Type\MetricInterface;
 use Ekino\Metric\Writer\WriterInterface;
-use Ekino\Metric\Exception\UnsuppportedException;
+use Ekino\Metric\Exception\UnsupportedException;
 use Ekino\Metric\Reporter\NewRelic\NewRelicInteractorInterface;
 
 class ReporterChainReporter implements ReporterInterface

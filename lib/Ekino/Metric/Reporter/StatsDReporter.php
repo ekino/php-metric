@@ -15,7 +15,7 @@ use Ekino\Metric\Type\TimerInterface;
 use Ekino\Metric\Type\GaugeInterface;
 use Ekino\Metric\Type\MetricInterface;
 use Ekino\Metric\Writer\WriterInterface;
-use Ekino\Metric\Exception\UnsuppportedException;
+use Ekino\Metric\Exception\UnsupportedException;
 
 /**
  * Reference : https://github.com/etsy/statsd
@@ -70,7 +70,7 @@ class StatsDReporter implements ReporterInterface
                 } elseif ($metric instanceof GaugeInterface) {
                     $datas[] = $this->buildGauge($metric, $timestamp);
                 }
-            } catch (UnsuppportedException $e) {
+            } catch (UnsupportedException $e) {
 
             }
         }
