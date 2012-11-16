@@ -11,7 +11,7 @@
 
 namespace Ekino\Metric\Exception;
 
-class UnsuppportedException extends \LogicException
+class UnsupportedException extends \LogicException
 {
 
 }

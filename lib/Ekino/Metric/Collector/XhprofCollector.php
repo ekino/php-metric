@@ -35,6 +35,7 @@ class XhprofCollector implements CollectionCollectorInterface
 
     /**
      * @param string  $prefix
+     * @param array   $functions
      * @param integer $flag
      * @param array   $ignoreFunction
      */

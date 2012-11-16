@@ -13,7 +13,7 @@ namespace Ekino\Metric\Collector;
 
 use Doctrine\DBAL\Logging\DebugStack;
 use Ekino\Metric\Collector\CollectorInterface;
-use Ekino\Metric\Exception\UnsuppportedException;
+use Ekino\Metric\Exception\UnsupportedException;
 use Ekino\Metric\Type\DefinedTimer;
 use Ekino\Metric\Type\Gauge;
 use Ekino\Metric\StringHelper;

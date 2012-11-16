@@ -15,10 +15,12 @@ class StringHelper
 {
     /**
      * Sanitize a string by
-     *   - removing replacing all non alphanumic and dot characters by `_`
+     *   - removing replacing all non alphanumeric and dot characters by `_`
      *   - put the string in lowercase
      *
      * @param string $string
+     *
+     * @return string
      */
     public function sanitize($string)
     {
