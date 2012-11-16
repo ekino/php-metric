@@ -11,14 +11,14 @@
 
 namespace Ekino\Metric\Reporter\XHGui;
 
-class XHGuiParameterResolver implements XHGuiParameterResolverInterface
+class CliParameterResolver implements ParameterResolverInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getUrl()
     {
-        return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : 'n/a';
+        return 'cli';
     }
 
     /**
@@ -26,7 +26,7 @@ class XHGuiParameterResolver implements XHGuiParameterResolverInterface
      */
     public function getCanonicalUrl()
     {
-        return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : 'n/a';
+        return 'cli';
     }
 
     /**
@@ -34,7 +34,7 @@ class XHGuiParameterResolver implements XHGuiParameterResolverInterface
      */
     public function getCookie()
     {
-        return $_COOKIE;
+        return array();
     }
 
     /**
@@ -42,7 +42,7 @@ class XHGuiParameterResolver implements XHGuiParameterResolverInterface
      */
     public function getPost()
     {
-        return $_POST;
+        return array();
     }
 
     /**
@@ -50,7 +50,7 @@ class XHGuiParameterResolver implements XHGuiParameterResolverInterface
      */
     public function getGet()
     {
-        return $_GET;
+        return array();
     }
 
     /**
@@ -58,6 +58,6 @@ class XHGuiParameterResolver implements XHGuiParameterResolverInterface
      */
     public function getServerName()
     {
-        return isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'n/a';
+        return gethostname();
     }
 }

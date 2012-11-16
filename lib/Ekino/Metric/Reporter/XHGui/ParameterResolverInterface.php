@@ -11,7 +11,7 @@
 
 namespace Ekino\Metric\Reporter\XHGui;
 
-interface XHGuiParameterResolverInterface
+interface ParameterResolverInterface
 {
     /**
      * @return string

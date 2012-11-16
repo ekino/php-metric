@@ -25,7 +25,7 @@ class Xhprof implements XhprofInterface
      */
     public function __construct($name, XhprofSample $sample)
     {
-        $this->name = $name;
+        $this->name = $name ?: substr(uniqid('metric_'), 0, 17);
         $this->sample = $sample;
     }
 

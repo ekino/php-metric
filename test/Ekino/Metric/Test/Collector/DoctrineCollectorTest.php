@@ -32,6 +32,10 @@ class DoctrineCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testQuery($query, $time, $count)
     {
+        if (!class_exists('Doctrine\DBAL\Logging\DebugStack')) {
+            $this->markTestSkipped('doctrine/dbal not installed');
+        }
+
         $stack = new DebugStack();
         $stack->startQuery($query);
         usleep(2000);

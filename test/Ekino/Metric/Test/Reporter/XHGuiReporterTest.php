@@ -12,7 +12,7 @@
 namespace Ekino\Metric\Test\Reporter;
 
 use Ekino\Metric\Reporter\XHGuiReporter;
-use Ekino\Metric\Reporter\XHGui\XHGuiParameterResolverInterface;
+use Ekino\Metric\Reporter\XHGui\ParameterResolverInterface;
 use Ekino\Metric\Reporter\Xhprof\XhprofSample;
 use Ekino\Metric\Type\Xhprof;
 
@@ -27,6 +27,10 @@ class XHGuiReporterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if (!extension_loaded('pdo_sqlite')) {
+            $this->markTestSkipped('PDO SQLite unavailable');
+        }
+
         $this->dbFile = sys_get_temp_dir().'/metric_foobar.db';
 
         if (is_file($this->dbFile)) {
@@ -58,7 +62,7 @@ class XHGuiReporterTest extends \PHPUnit_Framework_TestCase
 
     public function testSend()
     {
-        $resolver = $this->getMock('Ekino\Metric\Reporter\XHGui\XHGuiParameterResolverInterface');
+        $resolver = $this->getMock('Ekino\Metric\Reporter\XHGui\ParameterResolverInterface');
         $reporter = new XHGuiReporter('sqlite:' . $this->dbFile, '', '', array(), 'sr1', $resolver);
         $sample = new XhprofSample();
         $sample->setData(array('main()' => array(

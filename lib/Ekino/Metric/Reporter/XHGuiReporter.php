@@ -12,7 +12,7 @@
 namespace Ekino\Metric\Reporter;
 
 use Ekino\Metric\Type\Xhprof;
-use Ekino\Metric\Reporter\XHGui\XHGuiParameterResolverInterface;
+use Ekino\Metric\Reporter\XHGui\ParameterResolverInterface;
 
 /**
  * Reference :
@@ -24,7 +24,7 @@ class XHGuiReporter implements ReporterInterface
 {
     protected $dsn;
 
-    protected $pdo;
+    protected $statement;
 
     protected $login;
 
@@ -36,16 +36,15 @@ class XHGuiReporter implements ReporterInterface
 
     protected $parameterResolver;
 
-
     /**
-     * @param string                          $dsn
-     * @param string                          $login
-     * @param string                          $password
-     * @param array                           $options
-     * @param string                          $serverId
-     * @param XHGuiParameterResolverInterface $parameterResolver
+     * @param string                     $dsn
+     * @param string                     $login
+     * @param string                     $password
+     * @param array                      $options
+     * @param string                     $serverId
+     * @param ParameterResolverInterface $parameterResolver
      */
-    public function __construct($dsn, $login, $password, $options, $serverId, XHGuiParameterResolverInterface $parameterResolver)
+    public function __construct($dsn, $login, $password, $options, $serverId, ParameterResolverInterface $parameterResolver)
     {
         $this->dsn = $dsn;
         $this->login = $login;
@@ -61,7 +60,6 @@ class XHGuiReporter implements ReporterInterface
     public function send(array $metrics)
     {
         foreach ($metrics as $data) {
-
             list($metric, $timestamp) = $data;
 
             if (!$metric instanceof Xhprof) {
@@ -75,13 +73,19 @@ class XHGuiReporter implements ReporterInterface
     /**
      * @return \Pdo
      */
-    protected function getConnection()
+    protected function getStatement()
     {
-        if (!$this->pdo) {
-            $this->pdo = new \Pdo($this->dsn, $this->login, $this->password, $this->options);
+        if (!$this->statement) {
+
+            $pdo = new \Pdo($this->dsn, $this->login, $this->password, $this->options);
+
+            $sql = 'INSERT INTO details (`id`, `url`, `c_url`, `timestamp`, `server name`, `perfdata`, `type`, `cookie`, `post`, `get`, `pmu`, `wt`, `cpu`, `server_id`, `aggregateCalls_include`)
+                                VALUES (:run_id, :url, :canonical_url, :timestamp, :server_name, :perfdata, 0, :cookie, :post, :get, :pmu, :wt, :cpu, :server_id, \'\');';
+
+            $this->statement = $pdo->prepare($sql);
         }
 
-        return $this->pdo;
+        return $this->statement;
     }
 
     /**
@@ -92,17 +96,10 @@ class XHGuiReporter implements ReporterInterface
      */
     protected function report(Xhprof $metric, $timestamp)
     {
-        $sql = 'INSERT INTO details (`id`, `url`, `c_url`, `timestamp`, `server name`, `perfdata`, `type`, `cookie`, `post`, `get`, `pmu`, `wt`, `cpu`, `server_id`, `aggregateCalls_include`)
-                    VALUES (:run_id, :url, :canonical_url, :timestamp, :server_name, :perfdata, 0, :cookie, :post, :get, :pmu, :wt, :cpu, :server_id, \'\');';
-
-        $runId = substr(uniqid('metric_'), 0, 17);
-
         $stat = $metric->getSample()->getStat();
 
-        $stm = $this->getConnection()->prepare($sql);
-
-        $stm->execute(array(
-            ':run_id'        => $runId,
+        $this->getStatement()->execute(array(
+            ':run_id'        => $metric->getName(),
             ':url'           => $this->parameterResolver->getUrl(),
             ':canonical_url' => $this->parameterResolver->getCanonicalUrl(),
             ':timestamp'     => $timestamp,
@@ -117,6 +114,6 @@ class XHGuiReporter implements ReporterInterface
             ':server_id'     => $this->serverId,
         ));
 
-        return $runId;
+        return $metric->getName();
     }
 }
