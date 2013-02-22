@@ -13,7 +13,6 @@
         }
     ],
     "require": {
-        "sonata-project/exporter": "dev-master",
         "doctrine/common": "*"
     },
     "autoload": {
